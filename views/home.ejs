@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JobPortal - Find Your Dream Job</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <body class="bg-gray-50">
+    <%- include ('./partials/nav') %>
+
+    <!-- Hero Section -->
+    <div class="bg-indigo-700 text-white py-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h1 class="text-4xl font-bold mb-4">Find Your Dream Job Today</h1>
+        <p class="text-xl mb-8">
+          Browse through thousands of full-time and part-time jobs near you
+        </p>
+      </div>
+    </div>
+
+    <!-- Jobs Listing Section -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="flex justify-between items-center mb-8">
+        <% if(jobs?.length>0){%>
+        <h2 class="text-2xl font-bold text-gray-800">Latest Job Listings</h2>
+        <a
+          href="/jobs"
+          class="text-indigo-600 hover:text-indigo-800 font-medium"
+          >View all jobs →</a
+        >
+        <%}%>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <% if (jobs && jobs.length > 0) { %> <% jobs.forEach(job => { %>
+        <div
+          class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
+        >
+          <div class="p-6">
+            <div class="flex justify-between items-start">
+              <div>
+                <h3 class="text-xl font-bold text-gray-800 mb-2">
+                  <%= job.title %>
+                </h3>
+                <p class="text-gray-600 mb-4">
+                  <%= job.company || 'Company Name' %>
+                </p>
+              </div>
+              <span
+                class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-indigo-100 text-indigo-800"
+              >
+                <%= job.jobType || 'Full-time' %>
+              </span>
+            </div>
+
+            <div class="flex items-center text-gray-500 text-sm mb-4">
+              <i class="fas fa-map-marker-alt mr-2"></i>
+              <span><%= job.location || 'Remote' %></span>
+              <span class="mx-2">•</span>
+              <i class="far fa-clock mr-2"></i>
+              <span><%= new Date(job.createdAt).toLocaleDateString() %></span>
+            </div>
+
+            <p class="text-gray-600 mb-6 line-clamp-3">
+              <%= job.description ? job.description.substring(0, 150) + '...' :
+              'No description provided' %>
+            </p>
+
+            <div class="flex justify-between items-center">
+              <span class="text-lg font-bold text-gray-900">
+                $<%= job.salary ? job.salary.toLocaleString() : 'Negotiable' %>
+                <span class="text-sm font-normal text-gray-500">/year</span>
+              </span>
+              <a
+                href="/job/<%= job.id %>"
+                class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              >
+                View Details
+              </a>
+            </div>
+          </div>
+        </div>
+        <% }); %> <% } else { %>
+        <div class="col-span-3 text-center py-12">
+          <i class="fas fa-briefcase text-5xl text-gray-300 mb-4"></i>
+          <h3 class="text-lg font-medium text-gray-700">
+            No jobs available at the moment
+          </h3>
+          <p class="text-gray-500 mt-1">
+            Check back later or post a job if you're hiring.
+          </p>
+        </div>
+        <% } %>
+      </div>
+    </div>
+    <%- include('./partials/footer') %>
+  </body>
+</html>

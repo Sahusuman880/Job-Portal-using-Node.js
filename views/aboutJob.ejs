@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= locals.job.title %> - JobPortal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <body class="bg-gray-50">
+    <%- include ('./partials/nav') %>
+
+    <div class="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-4xl mx-auto">
+        <!-- Back Button -->
+        <a
+          href="/"
+          class="inline-flex items-center text-indigo-600 hover:text-indigo-800 mb-6"
+        >
+          <i class="fas fa-arrow-left mr-2"></i> Back to Jobs
+        </a>
+
+        <!-- Job Header -->
+        <div class="bg-white shadow rounded-lg p-6 mb-8">
+          <div
+            class="flex flex-col md:flex-row md:items-center md:justify-between"
+          >
+            <div>
+              <h1 class="text-3xl font-bold text-gray-900">
+                <%= locals.job.title %>
+              </h1>
+              <p class="text-xl text-gray-600 mt-2">
+                <%= locals.job.company %>
+              </p>
+            </div>
+            <div class="mt-4 md:mt-0">
+              <span
+                class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-indigo-100 text-indigo-800"
+              >
+                <i class="fas fa-briefcase mr-2"></i> Full-time
+              </span>
+            </div>
+          </div>
+
+          <div class="mt-6 flex flex-wrap gap-4 text-sm text-gray-600">
+            <div class="flex items-center">
+              <i class="fas fa-map-marker-alt mr-2 text-gray-400"></i>
+              <span>Remote</span>
+            </div>
+            <div class="flex items-center">
+              <i class="far fa-calendar-alt mr-2 text-gray-400"></i>
+              <span
+                >Posted on <%= new
+                Date(locals.job.createdAt).toLocaleDateString() %></span
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <!-- Main Content -->
+          <div class="lg:col-span-2 space-y-8">
+            <!-- Job Description -->
+            <div class="bg-white shadow rounded-lg p-6">
+              <h2 class="text-xl font-semibold text-gray-900 mb-4">
+                Job Description
+              </h2>
+              <div class="prose max-w-none text-gray-600">
+                <p class="whitespace-pre-line"><%= locals.job.description %></p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sidebar -->
+          <div class="space-y-6">
+            <!-- Apply Card -->
+            <div class="bg-white shadow rounded-lg p-6">
+              <h3 class="text-lg font-medium text-gray-900 mb-4">
+                Apply for this position
+              </h3>
+              <a
+                href="/apply/<%= locals.job.id %>"
+                class="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              >
+                Apply Now
+              </a>
+            </div>
+
+            <!-- Job Overview -->
+            <div class="bg-white shadow rounded-lg p-6">
+              <h3 class="text-lg font-medium text-gray-900 mb-4">
+                Job Overview
+              </h3>
+              <div class="space-y-4">
+                <div>
+                  <span class="block text-sm text-gray-500">Posted Date</span>
+                  <span class="font-medium"
+                    ><%= new Date(locals.job.createdAt).toLocaleDateString()
+                    %></span
+                  >
+                </div>
+                <div>
+                  <span class="block text-sm text-gray-500">Job Type</span>
+                  <span class="font-medium">Full-time</span>
+                </div>
+                <div>
+                  <span class="block text-sm text-gray-500">Location</span>
+                  <span class="font-medium">Remote</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <%- include ('./partials/footer') %>
+  </body>
+</html>
